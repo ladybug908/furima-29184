@@ -34,9 +34,9 @@
 
 ### Association
 
-- belongs_to : user
-- has_one :purchase
-- belongs_to_active_hash : category_id
+- belongs_to :users
+- has_one :purchases
+- belongs_to_active_hash :category_id
 - belongs_to_active_hash :status_id
 - belongs_to_active_hash :postage_id
 - belongs_to_active_hash :area_id
