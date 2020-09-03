@@ -11,27 +11,24 @@
 | family_name      | string  | null: false |
 | first_name_kana  | string  | null: false |
 | family_name_kana | string  | null: false |
-| birth_year       | integer | null: false |
-| birth_month      | integer | null: false |
-| birth_day        | integer | null: false |
+| birth            | date    | null: false |
 
 ### Association
 
 - has_many :exhibition
-- has_many :shopping
+- has_many :purchases
 
 ## exhibitions テーブル
 
 | Column        | Type    | Options     |
 | ------------- | ------- | ----------- |
-| image    | string  | null: false |
 | item_name     | string  | null: false |
 | introduction  | text    | null: false |
-| category      | string  | null: false |
-| status        | string  | null: false |
-| postage       | string  | null: false |
-| area          | string  | null: false |
-| days          | string  | null: false |
+| category_id   | integer | null: false |
+| status_id     | integer | null: false |
+| postage_id    | integer | null: false |
+| area_id       | integer | null: false |
+| days_id       | integer | null: false |
 | price         | integer | null: false |
 
 
@@ -39,22 +36,24 @@
 
 - belongs_to : user
 - has_one :purchase
+- belongs_to_active_hash : category_id
+- belongs_to_active_hash :status_id
+- belongs_to_active_hash :postage_id
+- belongs_to_active_hash :area_id
+- belongs_to_active_hash :days_id
 
 ## purchases テーブル
 
-| Column        | Type    | Options     |
-| ------------- | ------- | ----------- |
-| credit_card   | integer | null: false |
-| expire_month  | integer | null: false |
-| expire_year   | integer | null: false |
-| security_cord | integer | null: false |
-
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| user         | references | null: false, foreign_key: true |
+| exhibition   | references | null: false, foreign_key: true |
 
 ### Association
 
--belongs_to :user
--belongs_to :exhibition
-- has_one : delivery
+- belongs_to :user
+- belongs_to :exhibition
+- has_one :delivery
 
 
 ## deliveries テーブル
@@ -62,7 +61,7 @@
 | Column         | Type    | Options     |
 | -------------- | ------- | ----------- |
 | postal_code    | integer | null: false |
-| prefectures    | string  | null: false |
+| area-id        | string  | null: false |
 | city           | string  | null: false |
 | block          | string  | null: false |
 | build          | string  |             |
@@ -71,4 +70,5 @@
 
 ### Association
 
--belongs_to :purchase
+- belongs_to :purchase
+- belongs_to_active_hash :area_id
