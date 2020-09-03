@@ -15,22 +15,22 @@
 
 ### Association
 
-- has_many :exhibition
+- has_many :exhibitions
 - has_many :purchases
 
 ## exhibitions テーブル
 
-| Column        | Type    | Options     |
-| ------------- | ------- | ----------- |
-| item_name     | string  | null: false |
-| introduction  | text    | null: false |
-| category_id   | integer | null: false |
-| status_id     | integer | null: false |
-| postage_id    | integer | null: false |
-| area_id       | integer | null: false |
-| days_id       | integer | null: false |
-| price         | integer | null: false |
-
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| item_name    | string     | null: false                    |
+| introduction | text       | null: false                    |
+| category_id  | integer    | null: false                    |
+| status_id    | integer    | null: false                    |
+| postage_id   | integer    | null: false                    |
+| area_id      | integer    | null: false                    |
+| days_id      | integer    | null: false                    |
+| price        | integer    | null: false                    |
+| user         | references | null: false, foreign_key: true |
 
 ### Association
 
@@ -61,8 +61,8 @@
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
 | purchase       | references | null: false, foreign_key: true |
-| postal_code    | integer    | null: false                    |
-| area-id        | integer    | null: false                    |
+| postal_code    | string     | null: false                    |
+| area_id        | integer    | null: false                    |
 | city           | string     | null: false                    |
 | block          | string     | null: false                    |
 | build          | string     |                                |
