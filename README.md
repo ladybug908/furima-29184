@@ -58,14 +58,15 @@
 
 ## deliveries テーブル
 
-| Column         | Type    | Options     |
-| -------------- | ------- | ----------- |
-| postal_code    | integer | null: false |
-| area-id        | string  | null: false |
-| city           | string  | null: false |
-| block          | string  | null: false |
-| build          | string  |             |
-| tel            | integer | null: false |
+| Column         | Type       | Options                        |
+| -------------- | ---------- | ------------------------------ |
+| purchase       | references | null: false, foreign_key: true |
+| postal_code    | integer    | null: false                    |
+| area-id        | integer    | null: false                    |
+| city           | string     | null: false                    |
+| block          | string     | null: false                    |
+| build          | string     |                                |
+| tel            | integer    | null: false                    |
 
 
 ### Association
