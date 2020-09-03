@@ -1,24 +1,74 @@
-# README
+#　テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users　テーブル
 
-Things you may want to cover:
+| Column           | Type    | Option      |
+| ---------------- | ------- | ----------- |
+| name             | string  | null: false |
+| email            | string  | null: false |
+| password         | string  | null: false |
+| first_name       | string  | null: false |
+| family_name      | string  | null: false |
+| first_name_kana  | string  | null: false |
+| family_name_kana | string  | null: false |
+| birth_year       | integer | null: false |
+| birth_month      | integer | null: false |
+| birth_day        | integer | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :exhibition
+- has_many :shopping
 
-* Configuration
+## exhibitions テーブル
 
-* Database creation
+| Column        | Type    | Options     |
+| ------------- | ------- | ----------- |
+| image    | string  | null: false |
+| item_name     | string  | null: false |
+| introduction  | text    | null: false |
+| category      | string  | null: false |
+| status        | string  | null: false |
+| postage       | string  | null: false |
+| area          | string  | null: false |
+| days          | string  | null: false |
+| price         | integer | null: false |
 
-* Database initialization
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to : user
+- has_one :purchase
 
-* Deployment instructions
+## purchases テーブル
 
-* ...
+| Column        | Type    | Options     |
+| ------------- | ------- | ----------- |
+| credit_card   | integer | null: false |
+| expire_month  | integer | null: false |
+| expire_year   | integer | null: false |
+| security_cord | integer | null: false |
+
+
+### Association
+
+-belongs_to :user
+-belongs_to :exhibition
+- has_one : delivery
+
+
+## deliveries テーブル
+
+| Column         | Type    | Options     |
+| -------------- | ------- | ----------- |
+| postal_code    | integer | null: false |
+| prefectures    | string  | null: false |
+| city           | string  | null: false |
+| block          | string  | null: false |
+| build          | string  |             |
+| tel            | integer | null: false |
+
+
+### Association
+
+-belongs_to :purchase
