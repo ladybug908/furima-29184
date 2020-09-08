@@ -9,9 +9,9 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.create(user_params)
-    if @donation.valid?
-      @donation.save  # バリデーションをクリアした時
+    @user = User.new(user_params)
+    if @user.valid?
+      @user.save  # バリデーションをクリアした時
       return redirect_to root_path
     else
       render "new"    # バリデーションに弾かれた時
