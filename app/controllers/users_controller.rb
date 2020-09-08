@@ -12,9 +12,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.valid?
       @user.save  # バリデーションをクリアした時
-      return redirect_to root_path
+      redirect_to root_path
     else
-      render "new"    # バリデーションに弾かれた時
+      render 'new'    # バリデーションに弾かれた時
     end
   end
 
@@ -27,8 +27,6 @@ class UsersController < ApplicationController
   end
 
   def move_to_new
-    unless user_signed_in?
-      redirect_to action: :new
-    end
+    redirect_to action: :new unless user_signed_in?
   end
 end
