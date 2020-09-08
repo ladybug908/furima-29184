@@ -10,7 +10,12 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    @user.save
+    if @donation.valid?
+      @donation.save  # バリデーションをクリアした時
+      return redirect_to root_path
+    else
+      render "new"    # バリデーションに弾かれた時
+    end
   end
 
   private
