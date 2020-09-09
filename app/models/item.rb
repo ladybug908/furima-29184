@@ -6,4 +6,6 @@ class Item < ApplicationRecord
 
   validates :price, format: { with: /^[0-9]+$/ }
   validates :price, numericality:{ greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999}
+
+  belongs_to :user
 end
