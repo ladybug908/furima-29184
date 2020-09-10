@@ -8,3 +8,14 @@ ja:
       frist_name_kana: お名前（カナ）
       family_name_kana: お名前（カナ）
       birth: 生年月日
+     
+     item:
+      image: 画像
+      item_name: 商品名
+      introduction: 商品の説明
+      category_id: カテゴリー
+      status_id: 商品の状態
+      postage_id: 配送料の負担
+      area_id: 配送元の地域
+      day_id: 発送までの日数
+      price: 販売価格

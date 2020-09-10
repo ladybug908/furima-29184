@@ -3,7 +3,6 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.all
-    @items = Item.order("created_at DESC")
   end
 
   def new
@@ -12,7 +11,8 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.create(item_params)
-    if @item.save
+    if @item.valid?
+      @item.save
       redirect_to root_path
     else
       render :new
@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:item_name, :introduction, :category_id, :status_id, :postage_id, :area_id, :day_id, :price)
+    params.require(:item).permit(:image, :item_name, :introduction, :category_id, :status_id, :postage_id, :area_id, :day_id, :price).merge(user_id: current_user.id,)
   end
 
   def move_to_new_user_session
