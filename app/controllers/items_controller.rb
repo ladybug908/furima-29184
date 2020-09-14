@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
   before_action :move_to_new_user_session , only: :new
 
-  #def index
-  #  @items = Item.all
-  #end
+  def index
+    @items = Item.all
+  end
 
   def new
     @item = Item.new
