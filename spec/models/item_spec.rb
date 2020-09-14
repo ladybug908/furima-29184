@@ -35,8 +35,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('カテゴリーを選択して下さい')
       end
+      it "カテゴリーの選択肢が０だと出品できない" do
+        @item.category_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('カテゴリーを選択して下さい')
+      end
       it "商品状態の選択がないと出品できない" do
         @item.status_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include('商品の状態を選択して下さい')
+      end
+      it "商品状態の選択肢が０だと出品できない" do
+        @item.status_id = '0'
         @item.valid?
         expect(@item.errors.full_messages).to include('商品の状態を選択して下さい')
       end
@@ -45,13 +55,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('配送料の負担を選択して下さい')
       end
+      it "配送料の選択肢が０だと出品できない" do
+        @item.postage_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('配送料の負担を選択して下さい')
+      end
       it "配送元の選択がないと出品できない" do
         @item.area_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include('配送元の地域を選択して下さい')
       end
+      it "配送元の選択肢が０だと出品できない" do
+        @item.area_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('配送元の地域を選択して下さい')
+      end
       it "発送までの日数の選択がないと出品できない" do
         @item.day_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include('発送までの日数を選択して下さい')
+      end
+      it "発送までの日数の選択肢が０だと出品できない" do
+        @item.day_id = '0'
         @item.valid?
         expect(@item.errors.full_messages).to include('発送までの日数を選択して下さい')
       end

@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-  before_action :move_to_new_user_session , only: :new
 
   def index
     @items = Item.all
@@ -11,8 +10,7 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.create(item_params)
-    if @item.valid?
-      @item.save
+    if @item.save
       redirect_to root_path
     else
       render :new
