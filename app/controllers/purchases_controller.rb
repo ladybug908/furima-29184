@@ -4,6 +4,8 @@ class PurchasesController < ApplicationController
 
   def index
     @purchase = Purchase.new
+    @item = Item.find(params[:item_id])
+    @purchases = @item.purchase.includes(:user)
   end
 
   def new
@@ -11,17 +13,27 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    @purchase = Item.create(item_params)
+    @item = Item.find(params[:item_id])
+    @purchase = @item.messages.new(purchase_params)
+    @purchase.save
     if @purchase.save
       redirect_to root_path
     else
-      render :new
+      @purchases = @item.purchase.includes(:user)
+      render :index
     end
   end
 
   def show
     
   end
+
+  private
+
+ def purchase_params
+   params.require(:purchase).permit(:hoge).merge(user_id: current_user.id)
+ end
+
 
   def move_to_new_user_session
     unless user_signed_in?
