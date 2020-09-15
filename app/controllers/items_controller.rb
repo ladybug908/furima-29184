@@ -1,9 +1,9 @@
 class ItemsController < ApplicationController
   before_action :move_to_new_user_session , only: :new
 
-  #def index
-  #  @items = Item.all
-  #end
+  def index
+    @items = Item.all.order("created_at DESC")
+  end
 
   def new
     @item = Item.new
@@ -21,7 +21,7 @@ class ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:image, :item_name, :introduction, :category_id, :status_id, :postage_id, :area_id, :day_id, :price).merge(user_id: current_user.id,)
+    params.require(:item).permit(:image, :item_name, :introduction, :category_id, :status_id, :postage_id, :area_id, :day_id, :price, user_ids:[]).merge(user_id: current_user.id,)
   end
 
   def move_to_new_user_session

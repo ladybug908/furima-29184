@@ -18,6 +18,7 @@ class Item < ApplicationRecord
 
 
   belongs_to :user
+  has_one :purchases
   belongs_to_active_hash :category
   belongs_to_active_hash :status
   belongs_to_active_hash :postage

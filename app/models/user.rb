@@ -18,4 +18,5 @@ class User < ApplicationRecord
   validates_format_of :frist_name_kana,:family_name_kana, with: NAME_KANA_REGEX
 
   has_many :items
+  has_many :purchases
 end
