@@ -129,8 +129,7 @@
       <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
       <% @items.each do |item| %>
       <li class='list'>
-      
-        <%= link_to "/purchases" do %>
+        <%= link_to "/items/purchase" do %>
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 
