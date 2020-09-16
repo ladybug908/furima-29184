@@ -2,9 +2,7 @@ class ItemsController < ApplicationController
   before_action :move_to_new_user_session, only: :new
 
   def index
-
     @items = Item.all.order("created_at DESC")
-
   end
 
   def new
@@ -22,6 +20,15 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+  end
+
+  def edit
+    @items = Item.find(params[:id])
+  end
+
+  def update
+    item = Item.find(params[:id])
+    item.update(item_params)
   end
 
   private
