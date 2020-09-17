@@ -1,5 +1,5 @@
 class PurchasesController < ApplicationController
-    before_action :move_to_new_user_session , only: :new
+    before_action :move_to_new_user_session
 
     def index
       #@purchase = Purchase.new
@@ -7,9 +7,9 @@ class PurchasesController < ApplicationController
       #@purchases = @item.purchase.includes(:user)
     end
 
-  #   def new
+    def new
 
-  #   end
+    end
 
      def create
       @purchase = Purchase.new(purchase_params)
@@ -28,7 +28,7 @@ class PurchasesController < ApplicationController
 
   #   end
 
-  #   private
+     private
 
     def purchase_params
       params.permit(:token)
@@ -43,9 +43,10 @@ class PurchasesController < ApplicationController
       )
     end
 
-  #   def move_to_new_user_session
-  #     unless user_signed_in?
-  #       redirect_to new_user_session_path
-  #     end
-  #   end
+    def move_to_new_user_session
+      unless user_signed_in?
+        redirect_to new_user_session_path
+      end
+    end
+
 end
