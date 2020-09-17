@@ -1,5 +1,6 @@
 class PurchasesController < ApplicationController
     before_action :move_to_new_user_session
+    before_action :move_to_root
 
     def index
       #@purchase = Purchase.new
@@ -13,7 +14,7 @@ class PurchasesController < ApplicationController
 
      def create
       @purchase = Purchase.new(purchase_params)
-  #     @item = Item.find(params[:item_id])
+      @item = Item.find(params[:item_id])
   #     @purchase.save
       if @purchase.valid?
         pay_item
@@ -46,6 +47,13 @@ class PurchasesController < ApplicationController
     def move_to_new_user_session
       unless user_signed_in?
         redirect_to new_user_session_path
+      end
+    end
+
+    def move_to_root
+      @item = Item.find(params[:item_id])
+      if user_signed_in? && current_user.id == @item.user_id
+        redirect_to root_path
       end
     end
 
