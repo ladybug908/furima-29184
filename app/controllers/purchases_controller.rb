@@ -1,11 +1,11 @@
 class PurchasesController < ApplicationController
-  #   before_action :move_to_new_user_session , only: :new
+    before_action :move_to_new_user_session , only: :new
 
-  #   def index
-  #     @purchase = Purchase.new
-  #     @item = Item.find(params[:item_id])
-  #     @purchases = @item.purchase.includes(:user)
-  #   end
+    def index
+      #@purchase = Purchase.new
+      #@item = Item.find(params[:item_id])
+      #@purchases = @item.purchase.includes(:user)
+    end
 
   #   def new
 
