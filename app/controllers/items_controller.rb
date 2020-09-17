@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:update, :edit, :show]
+  before_action :set_item, only: [:destroy, :update, :edit, :show]
   before_action :move_to_new_user_session, only: :new
 
   def index
@@ -30,6 +30,14 @@ class ItemsController < ApplicationController
       redirect_to item_path
     else
       render :edit
+    end
+  end
+
+  def destroy
+    if @item.destroy
+      redirect_to root_path
+    else
+      render :show
     end
   end
 
