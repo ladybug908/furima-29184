@@ -11,17 +11,18 @@ class PurchasesController < ApplicationController
 
   #   end
 
-  #   def create
+     def create
+      @purchase = Purchase.new(purchase_params)
   #     @item = Item.find(params[:item_id])
-  #     @purchase = @item.messages.new(purchase_params)
   #     @purchase.save
-  #     if @purchase.save
-  #       redirect_to root_path
-  #     else
-  #       @purchases = @item.purchase.includes(:user)
-  #       render :index
-  #     end
-  #   end
+      if @purchase.valid?
+        pay_item
+        @purchase.save
+        return redirect_to root_path
+      else
+        render :index
+      end
+     end
 
   #   def show
 
@@ -29,9 +30,18 @@ class PurchasesController < ApplicationController
 
   #   private
 
-  #  def purchase_params
-  #    params.require(:purchase).permit(:hoge).merge(user_id: current_user.id)
-  #  end
+    def purchase_params
+      params.permit(:token)
+    end
+
+    def pay_item
+      Payjp.api_key = "sk_test_8afe4dc22ad96bdd04f81ae0"  # PAY.JPテスト秘密鍵
+      Payjp::Charge.create(
+        amount: order_params[:price],  # 商品の値段
+        card: order_params[:token],    # カードトークン
+        currency:'jpy'                 # 通貨の種類(日本円)
+      )
+    end
 
   #   def move_to_new_user_session
   #     unless user_signed_in?
