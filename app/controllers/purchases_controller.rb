@@ -3,40 +3,42 @@ class PurchasesController < ApplicationController
     before_action :move_to_root
 
     def index
-      #@purchase = Purchase.new
+      @purchase = UserPurchase.new
       @item = Item.find(params[:item_id])
-      #@purchases = @item.purchase.includes(:user)
+#      @purchases = @item.purchase.includes(:user)
     end
 
-    def new
-
-    end
+    # def new
+    #   @delivery = UserPurchase.new
+    # end
 
      def create
-      @purchase = Purchase.new(purchase_params)
       @item = Item.find(params[:item_id])
-  #     @purchase.save
+      @purchase = UserPurchase.new(delivery_params)
+      
+#      @delivery = UserPurchase.new(delivery_params)
       if @purchase.valid?
         pay_item
         @purchase.save
+        @delivery.save
         return redirect_to root_path
       else
         render :index
       end
      end
 
-  #   def show
-
-  #   end
-
      private
 
-    def purchase_params
-      params.permit(:token)
-    end
+     def delivery_params
+       params.permit(:token, :postal_code, :area_id,:city, :block, :build, :tel, purchase_ids: []).merge(user_id: current_user.id)
+     end
+
+    # def purchase_params
+    #   params.permit(:token)
+    # end  
 
     def pay_item
-      Payjp.api_key = "sk_test_8afe4dc22ad96bdd04f81ae0"  # PAY.JPテスト秘密鍵
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # PAY.JPテスト秘密鍵
       Payjp::Charge.create(
         amount: order_params[:price],  # 商品の値段
         card: order_params[:token],    # カードトークン
