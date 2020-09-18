@@ -5,7 +5,7 @@ class CreateDeliveries < ActiveRecord::Migration[6.0]
       t.integer    :area_id,      null: false
       t.string     :city,         null: false
       t.string     :block,        null: false
-      t.string     :build,        null: false
+      t.string     :build,        
       t.string     :tel,          null: false
       t.references :purchase,     null: false, foreign_key: true
 
