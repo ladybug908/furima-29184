@@ -19,3 +19,10 @@ ja:
       area_id: 配送元の地域
       day_id: 発送までの日数
       price: 販売価格
+
+     user_purchase:
+      postal_code: 郵便番号
+      area_id: 都道府県
+      city: 市区町村
+      block: 番地
+      tel: 電話番号
