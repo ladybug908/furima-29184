@@ -12,7 +12,7 @@ class Item < ApplicationRecord
   end
 
   belongs_to :user
-  has_one :purchases
+  has_one :purchase
   belongs_to_active_hash :category
   belongs_to_active_hash :status
   belongs_to_active_hash :postage
