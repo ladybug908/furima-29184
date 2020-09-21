@@ -10,7 +10,6 @@ class UserPurchase
   validates :tel, format: { with: /\A\d{11}\z/ }
 
   def save
-    #  item = Item.create(image: image, item_name: item_name, introduction: introduction, category_id: category_id, status_id: status_id, postage_id: postage_id, area_id: area_id, day_id: day_id, price: price,)
     purchase = Purchase.create(user_id: user_id, item_id: item_id)
     Delivery.create(postal_code: postal_code, area_id: area_id, city: city, block: block, build: build, tel: tel, purchase_id: purchase.id)
   end

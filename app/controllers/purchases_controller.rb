@@ -1,25 +1,17 @@
 class PurchasesController < ApplicationController
   before_action :move_to_new_user_session
   before_action :move_to_root
+  before_action :set_item
 
   def index
     @purchase = UserPurchase.new
-    @item = Item.find(params[:item_id])
-    #      @purchases = @item.purchase.includes(:user)
   end
 
-  # def new
-  #   @delivery = UserPurchase.new
-  # end
-
   def create
-    @item = Item.find(params[:item_id])
     @purchase = UserPurchase.new(delivery_params)
-    #      @delivery = UserPurchase.new(delivery_params)
     if @purchase.valid?
       @purchase.save
       pay_item
-      # @delivery.save
       redirect_to root_path
     else
       render :index
@@ -28,13 +20,13 @@ class PurchasesController < ApplicationController
 
   private
 
+  def set_item
+    @items = Item.find(params[:item_id])
+  end
+
   def delivery_params
     params.permit(:token, :item_id, :postal_code, :area_id, :city, :block, :build, :tel).merge(user_id: current_user.id)
   end
-
-  # def purchase_params
-  #   params.permit(:token)
-  # end
 
   def pay_item
     Payjp.api_key = ENV['PAYJP_SECRET_KEY'] # PAY.JPテスト秘密鍵
