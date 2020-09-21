@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :move_to_new_user_session
   before_action :move_to_root
+  before_action :move_to_top
   before_action :set_item
 
   def index
@@ -44,5 +45,10 @@ class PurchasesController < ApplicationController
   def move_to_root
     @item = Item.find(params[:item_id])
     redirect_to root_path if user_signed_in? && current_user.id == @item.user_id
+  end
+
+  def move_to_top
+    @item = Item.find(params[:item_id])
+    redirect_to root_path if @item.purchase.present?
   end
 end
