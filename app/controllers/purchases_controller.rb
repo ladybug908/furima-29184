@@ -5,22 +5,22 @@ class PurchasesController < ApplicationController
   def index
     @purchase = UserPurchase.new
     @item = Item.find(params[:item_id])
- #      @purchases = @item.purchase.includes(:user)
+    #      @purchases = @item.purchase.includes(:user)
   end
 
-    # def new
-    #   @delivery = UserPurchase.new
-    # end
+  # def new
+  #   @delivery = UserPurchase.new
+  # end
 
   def create
     @item = Item.find(params[:item_id])
     @purchase = UserPurchase.new(delivery_params)
     #      @delivery = UserPurchase.new(delivery_params)
     if @purchase.valid?
-      @purchase.save      
+      @purchase.save
       pay_item
       # @delivery.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render :index
     end
@@ -29,33 +29,28 @@ class PurchasesController < ApplicationController
   private
 
   def delivery_params
-    params.permit(:token, :item_id, :postal_code, :area_id,:city, :block, :build, :tel).merge(user_id: current_user.id)
+    params.permit(:token, :item_id, :postal_code, :area_id, :city, :block, :build, :tel).merge(user_id: current_user.id)
   end
 
   # def purchase_params
   #   params.permit(:token)
-  # end  
+  # end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # PAY.JPテスト秘密鍵
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY'] # PAY.JPテスト秘密鍵
     Payjp::Charge.create(
-      amount: @item.price,  # 商品の値段
-      card: delivery_params[:token],    # カードトークン
-      currency:'jpy'                 # 通貨の種類(日本円)
+      amount: @item.price, # 商品の値段
+      card: delivery_params[:token], # カードトークン
+      currency: 'jpy'                 # 通貨の種類(日本円)
     )
   end
 
   def move_to_new_user_session
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
+    redirect_to new_user_session_path unless user_signed_in?
   end
 
   def move_to_root
     @item = Item.find(params[:item_id])
-    if user_signed_in? && current_user.id == @item.user_id
-      redirect_to root_path
-    end
+    redirect_to root_path if user_signed_in? && current_user.id == @item.user_id
   end
-
 end
