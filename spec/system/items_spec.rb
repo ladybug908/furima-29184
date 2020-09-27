@@ -44,4 +44,12 @@ RSpec.describe '商品出品機能', type: :system do
       expect(page).to have_content(@item.price)
     end
   end
+  context '出品ができないとき'do
+    it 'ログインしていないと出品ページに遷移できない' do
+      # トップページに遷移する
+      visit root_path
+      # ログインせずに出品ページへ遷移しない
+      expect(page).to have_content('出品する')
+    end
+  end
 end
