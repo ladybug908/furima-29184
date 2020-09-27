@@ -8,6 +8,6 @@ FactoryBot.define do
     family_name           { 'ひらがな' }
     frist_name_kana       { 'カタカナ' }
     family_name_kana      { 'カタカナ' }
-    birth                 { '2000/01/01' }
+    birth                 { '2000-01-01' }
   end
 end
